@@ -2,7 +2,7 @@
 
 A clean, responsive, and professional portfolio website built to showcase my skills, projects, and background as a Computer Science student at the University of the Witwatersrand (Wits).
 
-> **Live Site:** [yonwabavunda.netlify.app](https://yonnwabavunda.netlify.app)
+> **Live Site:** [yonwabavunda.netlify.app](https://yonwabavunda.netlify.app)
 
 ---
 

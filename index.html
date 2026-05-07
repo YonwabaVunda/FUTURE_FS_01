@@ -33,12 +33,11 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--ff-mono);
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -163,7 +162,7 @@
 
     .hero-title {
       font-family: var(--ff-head);
-      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
       font-weight: 600;
       color: var(--muted);
       margin-top: 1rem;
@@ -267,7 +266,7 @@
 
     .section-title {
       font-family: var(--ff-head);
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text);
@@ -398,15 +397,178 @@
       color: var(--accent);
     }
 
-    /* ── PROJECTS ── */
-    #projects { background: var(--bg2); }
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg2); }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
+    /* ── TIMELINE (shared by experience + projects) ── */
+    .timeline {
+      position: relative;
+      padding: 0.5rem 0;
     }
 
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent), var(--accent), transparent);
+      opacity: 0.25;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 0;
+      margin-bottom: 3.5rem;
+      align-items: start;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    /* Left side */
+    .timeline-left {
+      padding-right: 2.5rem;
+      text-align: left;
+    }
+
+    /* Right side */
+    .timeline-right {
+      padding-left: 2.5rem;
+      text-align: right;
+    }
+
+    /* Center node */
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0.35rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .timeline-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(158,255,87,0.4);
+      flex-shrink: 0;
+    }
+
+    .timeline-dot.filled {
+      background: var(--accent);
+    }
+
+    /* Align even items: card on left, date on right */
+    .timeline-item.flip .timeline-left  { order: 3; padding-left: 2.5rem; padding-right: 0; text-align: left; }
+    .timeline-item.flip .timeline-node  { order: 2; }
+    .timeline-item.flip .timeline-right { order: 1; padding-right: 2.5rem; padding-left: 0; text-align: right; }
+
+    /* Timeline date badge */
+    .tl-date {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+      margin-top: 0.15rem;
+      white-space: nowrap;
+    }
+
+    .tl-date-sub {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Experience card ── */
+    .exp-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.8rem;
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    }
+
+    .exp-card:hover {
+      border-color: rgba(158,255,87,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+    }
+
+    .exp-role {
+      font-family: var(--ff-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-org {
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .exp-body {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .exp-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    .exp-tag {
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(158,255,87,0.06);
+      border: 1px solid rgba(158,255,87,0.15);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+
+    .projects-sub-heading {
+      font-family: var(--ff-head);
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
+
+    .projects-sub-heading:first-of-type { margin-top: 0; }
+
+    .sub-divider {
+      width: 40px; height: 2px;
+      background: var(--accent2);
+      margin-bottom: 2.5rem;
+      opacity: 0.7;
+    }
+
+    /* Project timeline card */
     .project-card {
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -485,12 +647,11 @@
     }
 
     .project-link:hover { gap: 0.7rem; }
-
     .project-link .arrow { transition: transform 0.2s; }
     .project-link:hover .arrow { transform: translateX(3px); }
 
     /* ── CONTACT ── */
-    #contact { background: var(--bg); }
+    #contact { background: var(--bg2); }
 
     .contact-inner {
       max-width: 700px;
@@ -532,10 +693,7 @@
       transform: translateY(-4px);
     }
 
-    .contact-icon {
-      font-size: 1.6rem;
-      margin-bottom: 0.2rem;
-    }
+    .contact-icon { font-size: 1.6rem; margin-bottom: 0.2rem; }
 
     .contact-label {
       font-size: 0.65rem;
@@ -544,9 +702,7 @@
       color: var(--muted);
     }
 
-    .contact-value {
-      font-size: 0.8rem;
-    }
+    .contact-value { font-size: 0.8rem; }
 
     /* ── FOOTER ── */
     footer {
@@ -581,7 +737,7 @@
       transform: translateY(0);
     }
 
-    /* ── CURSOR DOT ── */
+    /* ── CURSOR ── */
     .cursor {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -612,6 +768,36 @@
       #hero { padding: 7rem 1.5rem 4rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      /* Mobile timeline: single column */
+      .timeline::before { left: 20px; transform: none; }
+
+      .timeline-item,
+      .timeline-item.flip {
+        grid-template-columns: 40px 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .timeline-item .timeline-node,
+      .timeline-item.flip .timeline-node { order: 1; padding-top: 0.4rem; }
+
+      .timeline-item .timeline-right,
+      .timeline-item.flip .timeline-right {
+        order: 2;
+        padding-left: 1.2rem;
+        padding-right: 0;
+        text-align: left;
+      }
+
+      .timeline-item .timeline-left,
+      .timeline-item.flip .timeline-left {
+        grid-column: 2;
+        order: 3;
+        padding-left: 1.2rem;
+        padding-right: 0;
+        text-align: left;
+        margin-top: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -625,6 +811,7 @@
     <a href="#hero" class="nav-logo">YV</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -686,7 +873,7 @@
             AI agents.
           </p>
           <p>
-            My approach is direct: I learn by building web apps that solve real problems. Whether it's a dynamic React app.
+            My approach is direct: I learn by building web apps that solve real problems. Whether it's a dynamic React app,
             I care about software that <strong>actually works</strong>
             and leaves an impression.
           </p>
@@ -714,6 +901,80 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="reveal">
+        <h2 class="section-title">Experience</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="timeline">
+
+        <!-- Item 1 — Internship (most recent) -->
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="exp-card">
+              <div class="exp-role">Full Stack Web Development Intern</div>
+              <div class="exp-org">Future Interns</div>
+              <p class="exp-body">
+                Selected for a one-month fellowship program focused on real-world web development projects.
+                Sharpening full-stack skills — building, shipping, and contributing across the entire
+                development stack. An immersive opportunity to grow as a developer in a structured,
+                project-based environment.
+              </p>
+              <div class="exp-tags">
+                <span class="exp-tag">Full Stack</span>
+                <span class="exp-tag">Web Development</span>
+                <span class="exp-tag">React.js</span>
+                <span class="exp-tag">Node.js</span>
+                <span class="exp-tag">Real-world Projects</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot filled"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">Apr 2026 – May 2026</div>
+            <div class="tl-date-sub">1-month program</div>
+          </div>
+        </div>
+
+        <!-- Item 2 — Tutor -->
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="exp-card">
+              <div class="exp-role">Tutor</div>
+              <div class="exp-org">University of the Witwatersrand</div>
+              <p class="exp-body">
+                Tutored first-year students in <strong style="color:var(--text);font-weight:500">Introduction to Algorithms &amp; Programming</strong>
+                and <strong style="color:var(--text);font-weight:500">Basic Computer Organisation</strong>.
+                Provided hands-on academic support to help students build strong foundations and
+                achieve exceptional results. Developed communication and mentorship skills while
+                deepening personal mastery of core CS concepts.
+              </p>
+              <div class="exp-tags">
+                <span class="exp-tag">Algorithms</span>
+                <span class="exp-tag">Programming Fundamentals</span>
+                <span class="exp-tag">Computer Organisation</span>
+                <span class="exp-tag">Mentorship</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot filled"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">Feb 2026 – Jun 2026</div>
+            <div class="tl-date-sub">University role</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -778,109 +1039,175 @@
   <section id="projects">
     <div class="section-inner">
       <div class="reveal">
-        <h2 class="section-title">Group Projects</h2>
+        <h2 class="section-title">Projects</h2>
         <div class="divider"></div>
       </div>
 
-      <div class="projects-grid">
-
-        <div class="project-card reveal">
-          <div class="project-type">Web Application</div>
-          <div class="project-title">NavigoQuest</div>
-          <p class="project-desc">
-            An interactive web-based application demonstrating advanced front-end
-            development and dynamic user navigation. Focused on clean UX, intuitive
-            interactions, and responsive design across all devices.
-            Built for students to explore and discover resources in their campus.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">TypeScript</span>
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">tailwindcss</span>
-            <span class="tech-tag">Netlify</span>
-          </div>
-          <a href="https://navigowe.netlify.app/" target="_blank" rel="noopener" class="project-link">
-            Live Demo <span class="arrow">→</span>
-          </a>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-type">Web Application</div>
-          <div class="project-title">Youth Aid Hub</div>
-          <p class="project-desc">
-            A web application designed to provide resources and employment opportunities for young people in local communities. Features include a comprehensive database of available services, user-friendly navigation, and a responsive design that works across all devices.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">TypeScript</span>
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">tailwindcss</span>
-            <span class="tech-tag">Netlify</span>
-          </div>
-          <a href="https://youthaidhub.netlify.app/" target="_blank" rel="noopener" class="project-link">
-            Live Demo <span class="arrow">→</span>
-          </a>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-type">Web Application</div>
-          <div class="project-title">Local Artisan Marketplace</div>
-          <p class="project-desc">
-            A web application designed to connect local artisans with customers in their community. The platform features a user-friendly interface for browsing and purchasing handmade products, as well as tools for artisans to manage their listings and sales. Built with a focus on supporting small businesses and promoting local craftsmanship.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">JavaScript</span>
-            <span class="tech-tag">tailwindcss</span>
-            <span class="tech-tag">HTML5</span>
-          </div>
-          <a href="https://local-artisan-marketplace-developers.github.io/LAMD/" target="_blank" rel="noopener" class="project-link">
-            Live Demo <span class="arrow">→</span>
-          </a>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-type">Web Application</div>
-          <div class="project-title">Unimart</div>
-          <p class="project-desc">
-           A web application for students to buy,sell and trade used items within their university campus. The platform features a user-friendly interface for browsing and listing items, as well as tools for managing transactions and communication between buyers and sellers. Built with a focus on fostering a sustainable and collaborative community among students.
-          </p>
-          <div class="project-tech">
-            <span class="tech-tag">React.js</span>
-            <span class="tech-tag">Node.js</span>
-            <span class="tech-tag">Express.js</span>
-            <span class="tech-tag">tailwindcss</span>
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">Azure App Services</span>
-          </div>
-          <a href="https://unimart.azurewebsites.net/" target="_blank" rel="noopener" class="project-link">
-            Live Demo <span class="arrow">→</span>
-          </a>
-        </div>
+      <!-- GROUP PROJECTS -->
+      <div class="reveal">
+        <div class="projects-sub-heading">Group Projects</div>
+        <div class="sub-divider"></div>
       </div>
-        <div class="reveal">
-        <h2 class="section-title">Personal Projects</h2>
-        <div class="divider"></div>
-        </div>
-        <div class="project-grid">
-          <div class="project-card reveal">
-            <div class="project-type">VibeCoding - Database</div>
-            <div class="project-title">AfricanGospelChurch</div>
-            <p class="project-desc">
-              A database management system designed to efficiently store and manage information related to the African Gospel Church. The system includes features for adding, updating, and retrieving data about church members, events, and resources. It provides a user-friendly interface for administrators to maintain accurate records and generate reports as needed.
-            </p>
-            <div class="project-tech">
-              <span class="tech-tag">Vite</span>
-              <span class="tech-tag">TypeScript</span>
-              <span class="tech-tag">React</span>
-              <span class="tech-tag">tailwindcss</span>
-              <span class="tech-tag">HTML5</span>
-              <span class="tech-tag">shadcn-ui</span>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="project-card">
+              <div class="project-type">Web Application</div>
+              <div class="project-title">NavigoQuest</div>
+              <p class="project-desc">
+                An interactive web-based application demonstrating advanced front-end
+                development and dynamic user navigation. Focused on clean UX, intuitive
+                interactions, and responsive design across all devices.
+                Built for students to explore and discover resources on their campus.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">Netlify</span>
+              </div>
+              <a href="https://navigowe.netlify.app/" target="_blank" rel="noopener" class="project-link">
+                Live Demo <span class="arrow">→</span>
+              </a>
             </div>
-            <a href="https://africangospelchurch.lovable.app/" target="_blank" rel="noopener" class="project-link">
-              Live Demo <span class="arrow">→</span>
-            </a>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">August 2025 - October 2025</div>
+            <div class="tl-date-sub">Web Application</div>
           </div>
         </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="project-card">
+              <div class="project-type">Web Application - Hackathon</div>
+              <div class="project-title">Youth Aid Hub</div>
+              <p class="project-desc">
+                A web application designed to provide resources and employment opportunities for young people in local communities. Features a comprehensive database of available services, user-friendly navigation, and a responsive design that works across all devices.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">Netlify</span>
+              </div>
+              <a href="https://youthaidhub.netlify.app/" target="_blank" rel="noopener" class="project-link">
+                Live Demo <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">01 September 2025 - 05 September 2025</div>
+            <div class="tl-date-sub">Web Application</div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="project-card">
+              <div class="project-type">Web Application</div>
+              <div class="project-title">Local Artisan Marketplace</div>
+              <p class="project-desc">
+                A web application designed to connect local artisans with customers in their community. Features a user-friendly interface for browsing and purchasing handmade products, as well as tools for artisans to manage their listings and sales. Built with a focus on supporting small businesses and promoting local craftsmanship.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">HTML5</span>
+              </div>
+              <a href="https://local-artisan-marketplace-developers.github.io/LAMD/" target="_blank" rel="noopener" class="project-link">
+                Live Demo <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">April 2025 - May 2025</div>
+            <div class="tl-date-sub">Web Application</div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="project-card">
+              <div class="project-type">Web Application</div>
+              <div class="project-title">Unimart</div>
+              <p class="project-desc">
+                A web application for students to buy, sell, and trade used items within their university campus. Features a user-friendly interface for browsing and listing items, plus tools for managing transactions and communication between buyers and sellers. Built to foster a sustainable and collaborative student community.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Express.js</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">Azure App Services</span>
+              </div>
+              <a href="https://unimart.azurewebsites.net/" target="_blank" rel="noopener" class="project-link">
+                Live Demo <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">April 2026 - May 2026</div>
+            <div class="tl-date-sub">Web Application</div>
+          </div>
+        </div>
+
+      </div><!-- /timeline group projects -->
+
+      <!-- PERSONAL PROJECTS -->
+      <div class="reveal" style="margin-top: 4rem;">
+        <div class="projects-sub-heading">Personal Projects</div>
+        <div class="sub-divider"></div>
       </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-left">
+            <div class="project-card">
+              <div class="project-type">VibeCoding — Database</div>
+              <div class="project-title">AfricanGospelChurch</div>
+              <p class="project-desc">
+                A database management system designed to efficiently store and manage information for the African Gospel Church. Includes features for adding, updating, and retrieving data about church members, events, and resources — with a user-friendly admin interface and reporting tools.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">Vite</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Tailwind CSS</span>
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">shadcn/ui</span>
+              </div>
+              <a href="https://africangospelchurch.lovable.app/" target="_blank" rel="noopener" class="project-link">
+                Live Demo <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-right">
+            <div class="tl-date">February 2026 - March 2026</div>
+            <div class="tl-date-sub">VibeCoding · Database</div>
+          </div>
+        </div>
+
+      </div><!-- /timeline personal projects -->
     </div>
   </section>
 
